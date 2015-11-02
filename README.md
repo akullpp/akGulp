@@ -1,10 +1,12 @@
 # myGulp
 
-Fully functional Gulp module for your enterprise AngularJS build process.
+Fully functional Gulp module for your enterprise AngularJS build process. A test project which integrates this module can be found at [akullpp/myDashboard](https://github.com/akullpp/myDashboard).
 
-## Stack
+## Expected Stack
 
-Gulp
+## General
+
+Gulp, Sass, AngularJS, Bootstrap, ESLint
 
 ### Testing
 
