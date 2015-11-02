@@ -21,4 +21,17 @@ Karma, Mocha, Chai, Sinon, Sinon-Chai, ngMidwayTester
     * `gulp test:api`: Executes API tests.
     * `gulp test:e2e`: Executes E2E tests.
 
-* `gulp build`: Builds the distribution.
+* `gulp build`: Builds the distribution which produces following folder structure:
+
+    ```
+    build/dist/
+        images/
+        fonts/
+        scripts/
+            main-{rev}.js
+            vendor-{rev}.js
+        styles/
+            main-{rev}.css
+            vendor-{rev}.css
+        index.html
+    ```
