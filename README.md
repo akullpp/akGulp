@@ -35,3 +35,67 @@ Karma, Mocha, Chai, Sinon, Sinon-Chai, ngMidwayTester
             vendor-{rev}.css
         index.html
     ```
+
+# Tasks
+
+## clean
+
+Deletes the build folder.
+
+Dependencies: del
+
+## fonts
+
+Copies `eot`, `svg`, `ttf`, `woff`, `woff2` and otf files from the development fonts folder to the distribution fonts folder.
+
+Dependencies: gulp-filter, gulp-flatten, gulp-size
+
+## lint
+
+Executes `lint:html`, `lint:css` and `lint:js`.
+
+## lint:html
+
+Lints the HTML files in the development folder. Checking that the doctype comes first is disabled for false positives considering partials.
+
+Dependencies: gulp-htmlhint, htmlhint-stylish
+
+## lint:css
+
+Lints the CSS files in the development styles folder.
+
+Dependencies: gulp-sass-lint
+
+## lint:js
+
+Lints the JavaScript files in the development and test folder.
+
+Dependencies: gulp-plumber, gulp-filter, gulp-eslint
+
+## styles
+
+Compiles the Sass files, removes unused rules by looking at the development HTML files and prefixes vendor-specific rules for the last two browser version. Finally it copies the styles to the temporary styles folder.
+
+Dependencies: gulp-plumber, gulp-sass, gulp-uncss, gulp-autoprefixer, gulp-size
+
+## watch
+
+Watches:
+ * the development styles folder and executes `lint:css` and `styles` on change.
+ * the development images folder and executes `images` on change.
+ * the development and test folders and executes `lint:js` and `test:unit:watch` on change.
+ * the main HTML file and all JavaScript files inside the development folder and the `bower.json` and executes `deps`.
+
+Dependencies: path
+
+## test
+
+Executes the unit, API- and E2E-tests in sequence.
+
+Dependencies: run-sequence
+
+## test:unit
+
+Runs Karma with the JavaScript, HTML files and all bower dependencies injected.
+
+Dependencies: wiredep, karma, karma-firefox-launcher, karma-mocha, karma-ng-html2js-preprocessor, karma-junit-reporter, karma-coffee-preprocessor, mocha, yargs, gulp-util
