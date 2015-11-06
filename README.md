@@ -2,11 +2,13 @@
 
 Fully functional Gulp module for your enterprise AngularJS build process. A test project which integrates this module can be found at [akullpp/myDashboard](https://github.com/akullpp/myDashboard).
 
+I used my initials as the prefix in order to emphasize the necessity to customize it for your project. So change it to your project prefix and do the necessary adaptions.
+
 ## Stack
 
 The usage of specific dependencies can be found in the task section where every task lists it's required dependencies.
 
-## General
+### General
 
 * [AngularJS](https://www.angularjs.org/)
 * [Bootstrap](http://getbootstrap.com/)
@@ -15,7 +17,6 @@ The usage of specific dependencies can be found in the task section where every 
 * [Gulp](http://gulpjs.com/)
 * [npm](https://www.npmjs.com/)
 * [Sass](http://sass-lang.com/)
-
 
 ### Testing
 
@@ -26,9 +27,15 @@ The usage of specific dependencies can be found in the task section where every 
 * [Sinon-Chai](https://github.com/domenic/sinon-chai)
 * [ngMidwayTester](https://github.com/yearofmoo/ngMidwayTester)
 
-## Main
+## Usage
 
-* `gulp dev`: Launches a server hosting and watching the development files.
+### Configuration
+
+You can find two static configuration files in `lib/`.
+
+### Tasks
+
+* `gulp dev` (default): Launches a server hosting and watching the development files.
 
 * `gulp test`: Executed unit, API and E2E tests.
     * `gulp test:unit`: Executes unit tests.
