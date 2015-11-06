@@ -2,15 +2,29 @@
 
 Fully functional Gulp module for your enterprise AngularJS build process. A test project which integrates this module can be found at [akullpp/myDashboard](https://github.com/akullpp/myDashboard).
 
-## Expected Stack
+## Stack
+
+The usage of specific dependencies can be found in the task section where every task lists it's required dependencies.
 
 ## General
 
-Gulp, Sass, AngularJS, Bootstrap, ESLint
+* [AngularJS](https://www.angularjs.org/)
+* [Bootstrap](http://getbootstrap.com/)
+* [Bower](http://bower.io/)
+* [ESLint](http://eslint.org/)
+* [Gulp](http://gulpjs.com/)
+* [npm](https://www.npmjs.com/)
+* [Sass](http://sass-lang.com/)
+
 
 ### Testing
 
-Karma, Mocha, Chai, Sinon, Sinon-Chai, ngMidwayTester
+* [Karma](https://karma-runner.github.io/)
+* [Mocha](http://mochajs.org/)
+* [Chai](http://chaijs.com/)
+* [Sinon](http://sinonjs.org/)
+* [Sinon-Chai](https://github.com/domenic/sinon-chai)
+* [ngMidwayTester](https://github.com/yearofmoo/ngMidwayTester)
 
 ## Main
 
@@ -36,49 +50,71 @@ Karma, Mocha, Chai, Sinon, Sinon-Chai, ngMidwayTester
         index.html
     ```
 
-# Tasks
+## Tasks
 
-## clean
+### build
+
+### partials
+
+Internal, should not be called directly.
+
+### compile
+
+Internal, should not be called directly.
+
+### clean
 
 Deletes the build folder.
 
 Dependencies: del
 
-## fonts
+### deps
+
+### deps:partials
+
+Internal, should not be called directly.
+
+### fonts
 
 Copies `eot`, `svg`, `ttf`, `woff`, `woff2` and otf files from the development fonts folder to the distribution fonts folder.
 
 Dependencies: gulp-filter, gulp-flatten, gulp-size
 
-## lint
+### images
+
+### lint
 
 Executes `lint:html`, `lint:css` and `lint:js`.
 
-## lint:html
+### lint:html
 
 Lints the HTML files in the development folder. Checking that the doctype comes first is disabled for false positives considering partials.
 
 Dependencies: gulp-htmlhint, htmlhint-stylish
 
-## lint:css
+### lint:css
 
 Lints the CSS files in the development styles folder.
 
 Dependencies: gulp-sass-lint
 
-## lint:js
+### lint:js
 
 Lints the JavaScript files in the development and test folder.
 
 Dependencies: gulp-plumber, gulp-filter, gulp-eslint
 
-## styles
+### serve
+
+### serve:dist
+
+### styles
 
 Compiles the Sass files, removes unused rules by looking at the development HTML files and prefixes vendor-specific rules for the last two browser version. Finally it copies the styles to the temporary styles folder.
 
 Dependencies: gulp-plumber, gulp-sass, gulp-uncss, gulp-autoprefixer, gulp-size
 
-## watch
+### watch
 
 Watches:
  * the development styles folder and executes `lint:css` and `styles` on change.
@@ -88,14 +124,23 @@ Watches:
 
 Dependencies: path
 
-## test
+### test
 
 Executes the unit, API- and E2E-tests in sequence.
 
 Dependencies: run-sequence
 
-## test:unit
+### test:unit
 
 Runs Karma with the JavaScript, HTML files and all bower dependencies injected.
 
 Dependencies: wiredep, karma, karma-firefox-launcher, karma-mocha, karma-ng-html2js-preprocessor, karma-junit-reporter, karma-coffee-preprocessor, mocha, yargs, gulp-util
+
+### test:unit:watch
+
+### test:api
+
+### test:e2e
+
+### run:e2e
+
