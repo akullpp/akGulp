@@ -1,6 +1,6 @@
 {
   "name": "ak-gulp",
-  "version": "1.0.5",
+  "version": "1.0.4",
   "description": "Fully functional Gulp module for your build process.",
   "keywords": [
     "gulp",
