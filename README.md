@@ -10,21 +10,22 @@ The usage of specific dependencies can be found in the task section where every 
 
 ### General
 
-* [AngularJS](https://www.angularjs.org/)
-* [Bootstrap](http://getbootstrap.com/)
-* [Bower](http://bower.io/)
-* [ESLint](http://eslint.org/)
-* [Gulp](http://gulpjs.com/)
-* [npm](https://www.npmjs.com/)
-* [Sass](http://sass-lang.com/)
+* [AngularJS 1.x](https://www.angularjs.org/)
+* [Bootstrap 3.x](http://getbootstrap.com/)
+* [Bower 1.x](http://bower.io/)
+* [ESLint 1.x](http://eslint.org/)
+* [Gulp 3.x](http://gulpjs.com/)
+* [npm 2.x](https://www.npmjs.com/)
+* [Sass 3.x](http://sass-lang.com/)
 
 ### Testing
 
-* [Karma](https://karma-runner.github.io/)
-* [Mocha](http://mochajs.org/)
-* [Chai](http://chaijs.com/)
-* [Sinon](http://sinonjs.org/)
-* [Sinon-Chai](https://github.com/domenic/sinon-chai)
+* [Karma 0.13.x](https://karma-runner.github.io/)
+* [Mocha 2.x](http://mochajs.org/)
+* [Chai 3.x](http://chaijs.com/)
+* [Protractor 2.x](https://angular.github.io/protractor/#/)
+* [Sinon 1.17.2](http://sinonjs.org/)
+* [Sinon-Chai 2.x](https://github.com/domenic/sinon-chai)
 
 ## Usage
 
