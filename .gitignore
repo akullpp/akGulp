@@ -1,3 +1,16 @@
+# Mac
+.DS_Store
+
+# IDE
+.idea/
+*.iml
+
+# Node
 node_modules/
-build/
 npm-debug.log
+
+# Bower
+bower_components/
+
+# Build
+build/

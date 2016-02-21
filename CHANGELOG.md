@@ -10,10 +10,15 @@ Paths are now arrays instead of strings
 
 ## 3.0.0
 
-Removed bluebird
+* Removed bluebird
+* Removed linting for HTML and CSS
+* Removed CoffeeScript support
+* Removed API tests
 
-Removed linting for HTML and CSS
+## 4.0.0
 
-Removed CoffeeScript support
-
-Removed API tests
+* Removed E2E testing
+* Substituted gulp-webserver for browsersync and httpProxy
+* Removed uncss
+* Rewrote testing
+* Split linting in scripts and testing

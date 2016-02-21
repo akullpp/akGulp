@@ -2,6 +2,8 @@
 
 Fully functional Gulp module for your enterprise AngularJS build process.
 
+It was developed under the assumption, that your build server is restricted in its communication with the internet.
+
 I used my initials as the prefix in order to emphasize the necessity to customize it for your project. So change it to your project prefix and do the necessary adaptions.
 
 ## Stack
@@ -10,6 +12,7 @@ The usage of specific dependencies can be found in the task section where every 
 
 ### General
 
+* ECMAScript 5.1
 * [AngularJS 1.x](https://www.angularjs.org/)
 * [Bootstrap 3.x](http://getbootstrap.com/)
 * [Bower 1.x](http://bower.io/)
@@ -22,14 +25,12 @@ The usage of specific dependencies can be found in the task section where every 
 
 * [Karma 0.13.x](https://karma-runner.github.io/)
 * [Mocha 2.x](http://mochajs.org/)
-* [Chai 3.x](http://chaijs.com/)
-* [Protractor 2.x](https://angular.github.io/protractor/#/)
-* [Sinon 1.17.2](http://sinonjs.org/)
-* [Sinon-Chai 2.x](https://github.com/domenic/sinon-chai)
+
+The assumption and best practice is to do consumer-driven API- and E2E-tests in another project.
 
 ## Usage
 
-### Implementation
+### Integration
 
 A test project which integrates this module can be found at [akullpp/myDashboard](https://github.com/akullpp/myDashboard).
 
@@ -54,8 +55,8 @@ module.exports = {
         }
     },
     consts: {
-        proxy: {
-            url: 'http://localhost:1234'
+        webserver: {
+            port: '3000'
         }
     }
 };
@@ -68,46 +69,43 @@ You can define you own tasks but must at least have the following:
 ```
 'use strict';
 
-var kwb2cGulp = require('kwb2c-gulp');
+var akGulp = require('ak-gulp');
 var gulp = require('gulp');
 
 var config = require('./config');
 
-kwb2cGulp(gulp, config);
-
-```
-
-#### protractor.conf.js
-
-Has to exist and can be the most minimal form:
-
-```
-'use strict';
-
-exports.config = {};
+akGulp(gulp, config);
 ```
 
 ### Main Tasks
 
 * `gulp dev` (default): Launches a server hosting and watching the development files.
 
-* `gulp test`: Executed unit and E2E tests.
-    * `gulp test:unit`: Executes unit tests.
-    * `gulp test:e2e`: Executes E2E tests.
+* `gulp test`: Executes unit tests once.
+    * `gulp test:watch`: Executes unit tests and keeps waiting.
+    * `gulp test:build`: Executes unit tests, coverage and junit reporter.
 
 * `gulp build`: Builds the distribution which produces following folder structure:
 
     ```
-    build/dist/
-        images/
-        fonts/
-        scripts/
-            main-{rev}.js
-            vendor-{rev}.js
-        styles/
-            main-{rev}.css
-            vendor-{rev}.css
-        index.html
+    build/
+        dist/
+            fonts/
+            images/
+            scripts/
+                main-{rev}.js
+                main-{rev}.js.map
+                vendor-{rev}.js
+                vendor-{rev}.js.map
+            styles/
+                main-{rev}.css
+                vendor-{rev}.css
+            index.html
+            VERSION
+        reports/
+            coverage/
+                ...
+            unit.xml
     ```
 
 ### Other Tasks
@@ -121,6 +119,10 @@ Internal, should not be called directly.
 #### compile
 
 Internal, should not be called directly.
+
+#### version
+
+Creates a machine-readable VERSION file in the distribution folder based on the `package.json` version.
 
 #### clean
 
@@ -148,13 +150,23 @@ Lints the JavaScript files in the development and test folder.
 
 Dependencies: gulp-plumber, gulp-filter, gulp-eslint
 
+#### lint:scripts
+
+Lints only the JavaScript files in the development folder.
+
+#### lint:test
+
+Lints only the JavaScript files in the test folder.
+
 #### serve
 
 #### serve:dist
 
+Executes the `build` task and afterwards serves the files from distribution folder.
+
 #### styles
 
-Compiles the Sass files, removes unused rules by looking at the development HTML files and prefixes vendor-specific rules for the last two browser version. Finally it copies the styles to the temporary styles folder.
+Compiles the Sass files and prefixes vendor-specific rules for the last two browser version. Finally it copies the styles to the temporary styles folder.
 
 Dependencies: gulp-plumber, gulp-sass, gulp-uncss, gulp-autoprefixer, gulp-size
 
@@ -162,23 +174,20 @@ Dependencies: gulp-plumber, gulp-sass, gulp-uncss, gulp-autoprefixer, gulp-size
 
 Watches:
  * the development styles folder and executes `styles` on change.
- * the development and test folders and executes `lint` and `test:unit:watch` on change.
- * the main HTML file and all JavaScript files inside the development folder and the `bower.json` and executes `deps`.
+ * the test folder and executes `lint:test` and `test:watch`.
+ * the development folder and executes `lint:scripts` and `test:watch` and `deps`.
+ * the `bower.json` and executes `deps`.
 
 Dependencies: path
 
 #### test
 
-Executes the unit and E2E-tests in sequence.
+Executes the Unit-tests in sequence.
 
 Dependencies: run-sequence
 
-#### test:unit
+#### test
 
-Runs Karma with the JavaScript, HTML files and all bower dependencies injected.
+#### test:watch
 
-Dependencies: wiredep, karma, karma-firefox-launcher, karma-mocha, karma-ng-html2js-preprocessor, karma-junit-reporter, karma-coffee-preprocessor, mocha, yargs, gulp-util
-
-#### test:unit:watch
-
-#### test:e2e
+#### test:build
