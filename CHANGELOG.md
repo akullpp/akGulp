@@ -22,3 +22,7 @@ Paths are now arrays instead of strings
 * Removed uncss
 * Rewrote testing
 * Split linting in scripts and testing
+
+## 5.0.0
+
+Reduced test path and changed naming to plural to indicate array
