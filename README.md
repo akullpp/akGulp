@@ -19,7 +19,7 @@ The usage of specific dependencies can be found in the task section where every 
 * [ESLint 1.x](http://eslint.org/)
 * [Gulp 3.x](http://gulpjs.com/)
 * [npm 2.x](https://www.npmjs.com/)
-* [Sass 3.x](http://sass-lang.com/)
+* [Less 2.x](http://sass-lang.com/)
 
 ### Testing
 
@@ -107,87 +107,3 @@ akGulp(gulp, config);
                 ...
             unit.xml
     ```
-
-### Other Tasks
-
-#### build
-
-#### partials
-
-Internal, should not be called directly.
-
-#### compile
-
-Internal, should not be called directly.
-
-#### version
-
-Creates a machine-readable VERSION file in the distribution folder based on the `package.json` version.
-
-#### clean
-
-Deletes the build folder.
-
-Dependencies: del
-
-#### deps
-
-#### deps:partials
-
-Internal, should not be called directly.
-
-#### fonts
-
-Copies `eot`, `svg`, `ttf`, `woff`, `woff2` and otf files from the development fonts folder to the distribution fonts folder.
-
-Dependencies: gulp-filter, gulp-flatten, gulp-size
-
-#### images
-
-#### lint
-
-Lints the JavaScript files in the development and test folder.
-
-Dependencies: gulp-plumber, gulp-filter, gulp-eslint
-
-#### lint:scripts
-
-Lints only the JavaScript files in the development folder.
-
-#### lint:test
-
-Lints only the JavaScript files in the test folder.
-
-#### serve
-
-#### serve:dist
-
-Executes the `build` task and afterwards serves the files from distribution folder.
-
-#### styles
-
-Compiles the Sass files and prefixes vendor-specific rules for the last two browser version. Finally it copies the styles to the temporary styles folder.
-
-Dependencies: gulp-plumber, gulp-sass, gulp-uncss, gulp-autoprefixer, gulp-size
-
-#### watch
-
-Watches:
- * the development styles folder and executes `styles` on change.
- * the test folder and executes `lint:test` and `test:watch`.
- * the development folder and executes `lint:scripts` and `test:watch` and `deps`.
- * the `bower.json` and executes `deps`.
-
-Dependencies: path
-
-#### test
-
-Executes the Unit-tests in sequence.
-
-Dependencies: run-sequence
-
-#### test
-
-#### test:watch
-
-#### test:build

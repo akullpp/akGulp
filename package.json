@@ -14,10 +14,18 @@
   "main": "lib/index.js",
   "author": "Andreas Kull <akullpp@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "0.12.x",
+    "npm": "2.x.x"
+  },
+  "scripts": {
+    "clean": "rm -rf doc node_modules npm-debug.log",
+    "lint": "eslint lib/**/*; exit 0",
+    "doc": "rm -rf doc; jsdoc -c .jsdoc -R README.md -p lib/**/* -d doc/"
+  },
   "dependencies": {
     "del": "^2.0.2",
     "diff": "^2.2.2",
-    "git-rev": "^0.2.1",
     "gulp": "^3.9.0",
     "gulp-angular-filesort": "^1.1.1",
     "gulp-autoprefixer": "^3.1.0",
@@ -26,6 +34,7 @@
     "gulp-eslint": "^1.0.0",
     "gulp-filter": "^3.0.1",
     "gulp-flatten": "^0.2.0",
+    "gulp-if": "^2.0.1",
     "gulp-imagemin": "^2.3.0",
     "gulp-inject": "^3.0.0",
     "gulp-less": "^3.1.0",
@@ -57,7 +66,11 @@
     "run-sequence": "^1.1.4",
     "uglify": "^0.1.5",
     "uglify-save-license": "^0.4.1",
-    "wiredep": "^2.2.2",
     "yargs": "^3.29.0"
+  },
+  "devDependencies": {
+    "documentation": "^4.0.0-beta5",
+    "eslint": "^2.11.1",
+    "jsdoc": "^3.4.0"
   }
 }
