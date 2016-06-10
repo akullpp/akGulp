@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: assets</title>
+    <title>JSDoc: Source: serve.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,100 +17,61 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: assets</h1>
+    <h1 class="page-title">Source: serve.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>assets</h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Copies unhandled assets with preserved paths to dist.</p>
-<p>Unhandled assets can be configered via <code>paths.unhandledAssets</code> and should be negative globs. The unhandled assets are all files with file extensions in <code>paths.app.root</code>.</p>
-<p><strong>The files should be handled as soon as possible.</strong></p>
-<pre class="prettyprint source"><code>config.paths.app.root/**&#47;* -> config.paths.build.dist.base/config.paths.app.root</code></pre></div>
-        
+module.exports = function(gulp, $, config) {
+    /**
+     * Static file server for development.
+     *
+     * Serves with priority from:
+     *
+     * 1. `paths.build.tmp.base`
+     * 2. `paths.base`
+     *
+     * Therefore the `index.html` located in the temporary folder precedes the same file in the base folder.
+     *
+     * @public
+     * @namespace serve
+     */
+    gulp.task('serve', function () {
+        return server([
+            config.paths.build.tmp.base,
+            config.paths.base,
+            'node_modules'
+        ]);
+	});
 
-        
+    /**
+     * Static file server that serves the `paths.build.dist.base` folder after executing the {@link build} task.
+     *
+     * @public
+     * @name serve:dist
+     * @memberof serve
+     */
+    gulp.task('serve:dist', ['build'], function () {
+        return server(config.paths.build.dist.base);
+    });
 
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="assets.js.html">assets.js</a>, <a href="assets.js.html#line4">line 4</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    function server(filesToServe) {
+        return gulp.src(filesToServe, {read:false})
+            .pipe($.plumber({
+                errorHandler: $.errorHandler
+            }))
+            .pipe($.webserver(config.consts.webserver));
+    }
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

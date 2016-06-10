@@ -43,30 +43,56 @@
 
 
     <section>
-        <article><h1>akGulp</h1><p>Fully functional Gulp module for your enterprise AngularJS build process.</p>
-<p>It was developed under the assumption, that your build server is restricted in its communication with the internet.</p>
-<p>I used my initials as the prefix in order to emphasize the necessity to customize it for your project. So change it to your project prefix and do the necessary adaptions.</p>
-<h2>Stack</h2><p>The usage of specific dependencies can be found in the task section where every task lists it's required dependencies.</p>
+        <article><h1>akGulp</h1><p>Conservative and basic <a href="http://gulpjs.com/">Gulp</a> node module for enterprise Angular 1 projects.</p>
+<ul>
+<li><a href="#motivation">Motivation</a></li>
+<li><a href="#stack">Stack</a></li>
+<li><a href="#integration">Integration</a></li>
+<li><a href="#tasks">Tasks</a></li>
+<li><a href="#development">Development</a></li>
+<li><a href="#future">Future</a></li>
+</ul>
+<h2>Motivation</h2><p>Why should you use this rather conservative module to power your Angular 1 build process?</p>
+<p>You shouldn't in an ideal world were you could do everything as you please and move on to <a href="https://webpack.github.io/">webpack</a>, <a href="https://facebook.github.io/react/">React</a> and so on.</p>
+<p>However in enterprise environments there are often restrictions (e.g. downloading binaries on your build server), other requirements (e.g. stability and documentation) or your colleagues are just not up to the churn.</p>
+<p>If you look at other generators, or gulp build tooling seeds in general, you will find them often to be convoluted and more like showcases of what you could do if you push the limits.</p>
+<p>This module aims to be different: Basic, conservative and documented.</p>
+<ol>
+<li>Basic: There should be only tasks that are necessary to produce a sensible distribution of the application.</li>
+<li>Conservative: The plugins used should be known to work over a larger timespan and not do any funky stuff like downloading binaries.</li>
+<li>Documented: Every task should have a concise documentation of what it does, how it should be used and what the requirements are. Further documentation can be found in the code.</li>
+</ol>
+<p>This module intends to be customer-based, i.e. a customer agrees on a default stack for their common projects and the build tooling is adapted accordingly once. Of course it could also be used as project-based module for one ore more Angular applications.</p>
+<p>I used my initials as the prefix in order to emphasize the necessity to customize it for your customer/company/project. So change it to your project prefix and do the necessary adaptions.</p>
+<p>A typical workflow for a fork would be to:</p>
+<ol>
+<li>Identify the infrastructural situation, what does it (dis-)allow?</li>
+<li>Define the stack and modify the module, e.g. switch out Less for Sass and/or add browserify.</li>
+<li>Either fork it as node module or integrate it as a folder for a project.</li>
+</ol>
+<h2>Stack</h2><p>These are the assumptions about the stack if you just want to use the module out-of-the box.</p>
 <h3>General</h3><ul>
-<li>ECMAScript 5.1</li>
 <li><a href="https://www.angularjs.org/">AngularJS 1.x</a></li>
-<li><a href="http://getbootstrap.com/">Bootstrap 3.x</a></li>
-<li><a href="http://bower.io/">Bower 1.x</a></li>
+<li><a href="http://www.ecma-international.org/ecma-262/5.1/">ECMAScript 5.1</a></li>
 <li><a href="http://eslint.org/">ESLint 1.x</a></li>
 <li><a href="http://gulpjs.com/">Gulp 3.x</a></li>
+<li><a href="http://lesscss.org/">Less 2.x</a></li>
+<li><a href="https://nodejs.org/en/">node 0.12.x</a></li>
 <li><a href="https://www.npmjs.com/">npm 2.x</a></li>
-<li><a href="http://sass-lang.com/">Less 2.x</a></li>
 </ul>
 <h3>Testing</h3><ul>
 <li><a href="https://karma-runner.github.io/">Karma 0.13.x</a></li>
 <li><a href="http://mochajs.org/">Mocha 2.x</a></li>
 </ul>
-<p>The assumption and best practice is to do consumer-driven API- and E2E-tests in another project.</p>
-<h2>Usage</h2><h3>Integration</h3><p>A test project which integrates this module can be found at <a href="https://github.com/akullpp/myDashboard">akullpp/myDashboard</a>.</p>
-<h4>package.json</h4><p>Add this module in <code>devDependencies</code>.</p>
-<h4>config.js</h4><p>The folder structure defined in <code>lib/paths.js</code> has to followed or overwritten in the <code>config.js</code>. Please note, that plural in properties indicate an array.</p>
-<p>If you need to, you can overwrite <code>lib/consts.js</code> in the same way.</p>
-<p>The only required entry is the <code>moduleName</code>, here an example:</p>
+<p>The assumption and best practice is to do consumer-driven API- and E2E-tests in a separate project.</p>
+<h2>Integration</h2><h3>As a node module</h3><p>This has rather huge advantages and should be prefered to the integrated folder. There are three possibilities here:</p>
+<ol>
+<li>In the very unlikely case you didn't need to make any adaptions and never plan to make any (beside basic ones via pull requests) you could have installed it via <code>npm i -D akGulp</code>. Not recommended.</li>
+<li>You've forked <code>akGulp</code> for adaptions and now have it at your own repository. In this case you will either need to use the repository URL in the <code>package.json</code> in yout <code>devDependencies</code>. Also not recommended since installations will take time, there will be no caching and no semver. Also you would probably need a SSH connection to the repository which is often an issue for the ops.</li>
+<li>You did everything right, forked it and have a private npm registry (e.g. <a href="https://books.sonatype.com/nexus-book/reference/npm.html">Nexus</a> in which you published your fork. Now you have everything: caching, security and semver. Good job.</li>
+</ol>
+<h4>config.js</h4><p>Here you can overwrite the paths if your folder structure differs or specify additional or different options for the gulp tasks and plugins.</p>
+<p>The only required entry is the <code>moduleName</code> which is used for the partials as module name:</p>
 <pre class="prettyprint source lang-js"><code>module.exports = {
     moduleName: 'my',
     paths: {
@@ -79,22 +105,43 @@
             port: '3000'
         }
     }
-};</code></pre><h4>gulpfile.js</h4><p>You can define you own tasks but must at least have the following:</p>
+};</code></pre><h4>gulpfile.js</h4><p>You can define you own tasks or overwrite existing ones but it must at least have the following:</p>
 <pre class="prettyprint source"><code>'use strict';
 
 var akGulp = require('ak-gulp');
 var gulp = require('gulp');
 
 var config = require('./config');
+var karma = require('./karma');
 
-akGulp(gulp, config);</code></pre><h3>Main Tasks</h3><ul>
-<li><p><code>gulp dev</code> (default): Launches a server hosting and watching the development files.</p>
-</li>
-<li><p><code>gulp test</code>: Executes unit tests once.</p>
+config.karma = karma;
+
+akGulp(gulp, config);</code></pre><h4>karma.js</h4><p>This is the configuration for Karma and is required to be a valid node module that exports an object. There are two major differences between this custom karma configuration and the default <code>kamra.conf.js</code> you might know. Dependencies and browsers have to specified with a special syntax. Everything else is like the default Karma configuration.</p>
+<p><strong>Dependencies</strong> which would normally just be the <code>files</code> property in Karma must be specified with the <code>deps</code> property since</p>
 <ul>
-<li><code>gulp test:watch</code>: Executes unit tests and keeps waiting.</li>
-<li><code>gulp test:build</code>: Executes unit tests, coverage and junit reporter.</li>
+<li>config.paths.tests</li>
+<li>config.paths.app.scripts</li>
+<li>config.paths.app.partials</li>
 </ul>
+<p>are added automatically. Here's an example:</p>
+<pre class="prettyprint source"><code>'use strict';
+
+module.exports = {
+    deps: [
+        'node_modules/angular/angular.js',
+        'node_modules/angular-mocks/angular-mocks.js',
+        'test/setup.js'
+    ]
+};</code></pre><p><strong>Browsers</strong> which would normally just be an array of strings are separated into <code>production</code> for your CI and <code>development</code> for your local environment. Here an example:</p>
+<pre class="prettyprint source"><code>browsers: {
+    production: ['IE'],
+    development: ['Chrome']
+}</code></pre><p>Possible values are <code>Chrome</code>, <code>Firefox</code> and <code>IE</code>.</p>
+<h3>As a folder</h3><p>TBD.</p>
+<h2>Tasks</h2><p>This is a description of commonly used tasks during development.</p>
+<p>An extensive list and documentation can be found <a href="http://akullpp.github.io/akGulp">at the respective website</a>. The same documentation can also be generated by <code>npm run doc</code>.</p>
+<ul>
+<li><p><code>gulp</code> (defaults to <code>gulp dev</code>): Launches a server hosting and watching the development files.</p>
 </li>
 <li><p><code>gulp build</code>: Builds the distribution which produces following folder structure:</p>
 <pre class="prettyprint source"><code>  build/
@@ -115,6 +162,18 @@ akGulp(gulp, config);</code></pre><h3>Main Tasks</h3><ul>
           coverage/
               ...
           unit.xml</code></pre></li>
+</ul>
+<h2>Development</h2><p>Local development is done with <code>npm link</code> in this projects folder and then linking it via <code>npm link ak-gulp</code> into the implementer's project folder.</p>
+<h3>Scripts</h3><p>There are three npm scripts:</p>
+<ol>
+<li><code>npm run clean</code>: Deletes <code>doc/</code>, <code>node_modules/</code> and <code>npm-debug.log</code></li>
+<li><code>npm run lint</code>: Lints <code>lib/</code> with ESlint</li>
+<li><code>npm run doc</code>: Generates the documentation to <code>doc/</code></li>
+</ol>
+<h3>Structure</h3><p>TBD.</p>
+<h2>Future Plans</h2><ul>
+<li>Generator for Less/Sass switching</li>
+<li>Tests.</li>
 </ul></article>
     </section>
 
@@ -126,13 +185,13 @@ akGulp(gulp, config);</code></pre><h3>Main Tasks</h3><ul>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="assets.html">assets</a></li><li><a href="clean.html">clean</a></li><li><a href="default.html">default</a></li><li><a href="dev.html">dev</a></li><li><a href="fonts.html">fonts</a></li><li><a href="images.html">images</a></li><li><a href="lint.html">lint</a></li><li><a href="styles.html">styles</a></li><li><a href="watch.html">watch</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="assets.html">assets</a></li><li><a href="build.html">build</a></li><li><a href="clean.html">clean</a></li><li><a href="default.html">default</a></li><li><a href="dev.html">dev</a></li><li><a href="fonts.html">fonts</a></li><li><a href="images.html">images</a></li><li><a href="inject.html">inject</a></li><li><a href="lint.html">lint</a></li><li><a href="partials.html">partials</a></li><li><a href="serve.html">serve</a></li><li><a href="styles.html">styles</a></li><li><a href="tests.html">tests</a></li><li><a href="version.html">version</a></li><li><a href="watch.html">watch</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Jun 09 2016 10:26:37 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jun 10 2016 14:10:57 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

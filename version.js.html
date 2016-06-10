@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: assets</title>
+    <title>JSDoc: Source: version.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,100 +17,41 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: assets</h1>
+    <h1 class="page-title">Source: version.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>assets</h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Copies unhandled assets with preserved paths to dist.</p>
-<p>Unhandled assets can be configered via <code>paths.unhandledAssets</code> and should be negative globs. The unhandled assets are all files with file extensions in <code>paths.app.root</code>.</p>
-<p><strong>The files should be handled as soon as possible.</strong></p>
-<pre class="prettyprint source"><code>config.paths.app.root/**&#47;* -> config.paths.build.dist.base/config.paths.app.root</code></pre></div>
-        
+module.exports = function(gulp, $, config) {
+    var pjson = require($.path.join(process.cwd(), 'package.json'));
 
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="assets.js.html">assets.js</a>, <a href="assets.js.html#line4">line 4</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    /**
+     * Writes the application version to dist.
+     *
+     * The version is located in the `package.json` and written to `paths.build.dist.base/config.conts.versionFile`.
+     *
+     * Used internally by {@link build}. Requires for `paths.build.dist.base` to exist.
+     *
+     * @private
+     * @namespace version
+     */
+    gulp.task('version', function (done) {
+        $.fs.writeFile(
+            $.path.join(config.paths.build.dist.base, config.consts.versionFile),
+            pjson.version,
+            done
+        );
+    });
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

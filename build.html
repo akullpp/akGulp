@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: lint</title>
+    <title>JSDoc: Namespace: build</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: lint</h1>
+    <h1 class="page-title">Namespace: build</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>lint</h2>
+        <h2>build</h2>
         
     
 </header>
@@ -37,9 +37,19 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Lints scripts and test files.</p>
-<p>Reports to stdout.</p>
-<p>Exits on errors if the <code>consts.productionFlag</code> if active.</p></div>
+            <div class="description"><p>Builds the application.</p>
+<p>Runs sequentially:</p>
+<ol>
+<li><a href="clean.html">clean</a></li>
+<li><a href="tests.html">tests:build</a></li>
+<li><a href="lint.html">lint</a></li>
+<li><a href="partials.html">partials</a> and <a href="styles.html">styles</a></li>
+<li><a href="inject.html">inject</a></li>
+<li><a href="inject.html">inject:partials</a></li>
+<li><a href="assets.html">assets</a></li>
+<li><a href="build.html">build:compile</a>, <a href="images.html">images</a>, <a href="fonts.html">fonts</a></li>
+<li><a href="version.html">version</a></li>
+</ol></div>
         
 
         
@@ -74,7 +84,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lint.js.html">lint.js</a>, <a href="lint.js.html#line4">line 4</a>
+        <a href="build.js.html">build.js</a>, <a href="build.js.html#line6">line 6</a>
     </li></ul></dd>
     
 
@@ -105,15 +115,26 @@
 
         
             
-<h4 class="name" id=".lint:scripts"><span class="type-signature">(static) </span>lint:scripts<span class="type-signature"></span></h4>
+<h4 class="name" id=".build:compile"><span class="type-signature">(private, static) </span>build:compile<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>Lints scripts.</p>
-<p>Reports to stdout.</p>
-<p>Exits on errors if the <code>consts.productionFlag</code> if active.</p>
+    <p>Compiles the application.</p>
+<p>The sequence of compiling the application to a distribution is as follows:</p>
+<ol>
+<li>Add <code>ngStrictDi</code> to the same element as the <code>ngApp</code> is attached to.</li>
+<li>Substitute the string <code>VERSION</code> in the <code>index.html</code> with the <code>package.json</code>'s version.</li>
+<li>Revision the static assets by appending the content hash to their filename.</li>
+<li>Automatically generate dependency annotations for Angular components with <code>ngAnnotate</code>.</li>
+<li>Minify the scripts and generate sourcemaps.</li>
+<li>Minify and optimize the styles with <code>csso</code>.</li>
+<li>Concatenate, minify and update the references in the <code>index.html</code>'s build blocks.</li>
+<li>Rename the references to their revisioned counterpart.</li>
+<li>Move everything to the <code>paths.build.dist.base</code> folder.</li>
+</ol>
+<p>Used internally by <a href="build.html">build</a>. Relies on <code>paths.build.tmp.mainHtml</code> to be present.</p>
 </div>
 
 
@@ -151,71 +172,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lint.js.html">lint.js</a>, <a href="lint.js.html#line16">line 16</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".lint:tests"><span class="type-signature">(static) </span>lint:tests<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Lints tests.</p>
-<p>Reports to stdout.</p>
-<p>Exits on errors if the <code>consts.productionFlag</code> if active.</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lint.js.html">lint.js</a>, <a href="lint.js.html#line31">line 31</a>
+        <a href="build.js.html">build.js</a>, <a href="build.js.html#line39">line 39</a>
     </li></ul></dd>
     
 

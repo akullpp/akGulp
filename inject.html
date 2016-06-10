@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: lint</title>
+    <title>JSDoc: Namespace: inject</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: lint</h1>
+    <h1 class="page-title">Namespace: inject</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>lint</h2>
+        <h2>inject</h2>
         
     
 </header>
@@ -37,9 +37,14 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Lints scripts and test files.</p>
-<p>Reports to stdout.</p>
-<p>Exits on errors if the <code>consts.productionFlag</code> if active.</p></div>
+            <div class="description"><p>Injects scripts, styles and partials into main HTML.</p>
+<p>Runs sequentially:</p>
+<ol>
+<li>inject:scripts</li>
+<li>inject:styles</li>
+<li>inject:partials</li>
+</ol>
+<p>Used internally by <a href="build.html">build</a> and <a href="dev.html">dev</a>.</p></div>
         
 
         
@@ -74,7 +79,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lint.js.html">lint.js</a>, <a href="lint.js.html#line4">line 4</a>
+        <a href="inject.js.html">inject.js</a>, <a href="inject.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -105,15 +110,15 @@
 
         
             
-<h4 class="name" id=".lint:scripts"><span class="type-signature">(static) </span>lint:scripts<span class="type-signature"></span></h4>
+<h4 class="name" id=".inject:scripts"><span class="type-signature">(private, static) </span>inject:scripts<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>Lints scripts.</p>
-<p>Reports to stdout.</p>
-<p>Exits on errors if the <code>consts.productionFlag</code> if active.</p>
+    <p>Injects the automatically sorted scripts into the main <code>index.html</code> and copies it to temp.</p>
+<p>Angular modules are automatically sorted for the correct order.</p>
+<p>Used internally by <a href="build.html">build</a>, <a href="dev.html">dev</a>, <a href="inject.html">inject</a> and <a href="watch.html">watch</a>.</p>
 </div>
 
 
@@ -151,7 +156,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lint.js.html">lint.js</a>, <a href="lint.js.html#line16">line 16</a>
+        <a href="inject.js.html">inject.js</a>, <a href="inject.js.html#line26">line 26</a>
     </li></ul></dd>
     
 
@@ -169,15 +174,14 @@
 
         
             
-<h4 class="name" id=".lint:tests"><span class="type-signature">(static) </span>lint:tests<span class="type-signature"></span></h4>
+<h4 class="name" id=".inject:styles"><span class="type-signature">(private, static) </span>inject:styles<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>Lints tests.</p>
-<p>Reports to stdout.</p>
-<p>Exits on errors if the <code>consts.productionFlag</code> if active.</p>
+    <p>Injects the main style file into the temporary <code>index.html</code>.</p>
+<p>Used internally by <a href="build.html">build</a>, <a href="dev.html">dev</a>, <a href="inject.html">inject</a> and <a href="watch.html">watch</a>.</p>
 </div>
 
 
@@ -215,7 +219,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lint.js.html">lint.js</a>, <a href="lint.js.html#line31">line 31</a>
+        <a href="inject.js.html">inject.js</a>, <a href="inject.js.html#line49">line 49</a>
     </li></ul></dd>
     
 

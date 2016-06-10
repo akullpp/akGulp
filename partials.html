@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: assets</title>
+    <title>JSDoc: Namespace: partials</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: assets</h1>
+    <h1 class="page-title">Namespace: partials</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>assets</h2>
+        <h2>partials</h2>
         
     
 </header>
@@ -37,10 +37,8 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Copies unhandled assets with preserved paths to dist.</p>
-<p>Unhandled assets can be configered via <code>paths.unhandledAssets</code> and should be negative globs. The unhandled assets are all files with file extensions in <code>paths.app.root</code>.</p>
-<p><strong>The files should be handled as soon as possible.</strong></p>
-<pre class="prettyprint source"><code>config.paths.app.root/**&#47;* -> config.paths.build.dist.base/config.paths.app.root</code></pre></div>
+            <div class="description"><p>Minifies, scriptifies, concatenates, uglifies all HTML files and copies them to temp.</p>
+<pre class="prettyprint source"><code>paths.app.partials -> paths.build.tmp.base</code></pre><p>Used internally by <a href="build.html">build</a>.</p></div>
         
 
         
@@ -75,7 +73,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="assets.js.html">assets.js</a>, <a href="assets.js.html#line4">line 4</a>
+        <a href="partials.js.html">partials.js</a>, <a href="partials.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -101,6 +99,74 @@
 
     
 
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".partials:inject"><span class="type-signature">(private, static) </span>partials:inject<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Injects the partial file created by <a href="partials.html">partials</a> into the temporary <code>index.html</code>.</p>
+<p>Requires <code>paths.build.tmp.mainHtml</code> and <code>paths.build.tmp.mainPartials</code> to exist.</p>
+<p>Used internally by <a href="build.html">build</a>.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="inject.js.html">inject.js</a>, <a href="inject.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
     
 
     

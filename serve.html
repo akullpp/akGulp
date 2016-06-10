@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: assets</title>
+    <title>JSDoc: Namespace: serve</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: assets</h1>
+    <h1 class="page-title">Namespace: serve</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>assets</h2>
+        <h2>serve</h2>
         
     
 </header>
@@ -37,10 +37,13 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Copies unhandled assets with preserved paths to dist.</p>
-<p>Unhandled assets can be configered via <code>paths.unhandledAssets</code> and should be negative globs. The unhandled assets are all files with file extensions in <code>paths.app.root</code>.</p>
-<p><strong>The files should be handled as soon as possible.</strong></p>
-<pre class="prettyprint source"><code>config.paths.app.root/**&#47;* -> config.paths.build.dist.base/config.paths.app.root</code></pre></div>
+            <div class="description"><p>Static file server for development.</p>
+<p>Serves with priority from:</p>
+<ol>
+<li><code>paths.build.tmp.base</code></li>
+<li><code>paths.base</code></li>
+</ol>
+<p>Therefore the <code>index.html</code> located in the temporary folder precedes the same file in the base folder.</p></div>
         
 
         
@@ -75,7 +78,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="assets.js.html">assets.js</a>, <a href="assets.js.html#line4">line 4</a>
+        <a href="serve.js.html">serve.js</a>, <a href="serve.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -101,6 +104,72 @@
 
     
 
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".serve:dist"><span class="type-signature">(static) </span>serve:dist<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Static file server that serves the <code>paths.build.dist.base</code> folder after executing the <a href="build.html">build</a> task.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="serve.js.html">serve.js</a>, <a href="serve.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
     
 
     

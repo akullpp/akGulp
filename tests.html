@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: lint</title>
+    <title>JSDoc: Namespace: tests</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: lint</h1>
+    <h1 class="page-title">Namespace: tests</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>lint</h2>
+        <h2>tests</h2>
         
     
 </header>
@@ -37,9 +37,8 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Lints scripts and test files.</p>
-<p>Reports to stdout.</p>
-<p>Exits on errors if the <code>consts.productionFlag</code> if active.</p></div>
+            <div class="description"><p>Runs the tests once and exits.</p>
+<p>Possible browsers are Chrome, Firefox and IE and are specified via the karma configuration file.</p></div>
         
 
         
@@ -74,7 +73,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lint.js.html">lint.js</a>, <a href="lint.js.html#line4">line 4</a>
+        <a href="tests.js.html">tests.js</a>, <a href="tests.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -105,15 +104,17 @@
 
         
             
-<h4 class="name" id=".lint:scripts"><span class="type-signature">(static) </span>lint:scripts<span class="type-signature"></span></h4>
+<h4 class="name" id=".tests:build"><span class="type-signature">(private, static) </span>tests:build<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>Lints scripts.</p>
-<p>Reports to stdout.</p>
-<p>Exits on errors if the <code>consts.productionFlag</code> if active.</p>
+    <p>Runs the tests once with additional reporting.</p>
+<p>Skippable with the <code>-st</code> switch.</p>
+<p>JUnit and coverage reporters are used to allow postprocessing by Jenkins and Sonar.</p>
+<p>HTML files are preprocessed to JavaScript in order to load them once and for all with <code>beforeEach(module(moduleName.templates));</code>.</p>
+<p>Used internally by <a href="build.html">build</a>.</p>
 </div>
 
 
@@ -151,7 +152,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lint.js.html">lint.js</a>, <a href="lint.js.html#line16">line 16</a>
+        <a href="tests.js.html">tests.js</a>, <a href="tests.js.html#line29">line 29</a>
     </li></ul></dd>
     
 
@@ -169,15 +170,14 @@
 
         
             
-<h4 class="name" id=".lint:tests"><span class="type-signature">(static) </span>lint:tests<span class="type-signature"></span></h4>
+<h4 class="name" id=".tests:watch"><span class="type-signature">(private, static) </span>tests:watch<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>Lints tests.</p>
-<p>Reports to stdout.</p>
-<p>Exits on errors if the <code>consts.productionFlag</code> if active.</p>
+    <p>Runs the tests without exiting for continuous development.</p>
+<p>Used internally by <a href="watch.html">watch</a>.</p>
 </div>
 
 
@@ -215,7 +215,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lint.js.html">lint.js</a>, <a href="lint.js.html#line31">line 31</a>
+        <a href="tests.js.html">tests.js</a>, <a href="tests.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
