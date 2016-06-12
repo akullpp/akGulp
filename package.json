@@ -1,6 +1,6 @@
 {
   "name": "ak-gulp",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "Conservative and basic Gulp module for enterprise Angular 1 projects.",
   "keywords": [
     "angular",
