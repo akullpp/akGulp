@@ -30,7 +30,7 @@ A typical workflow for a fork would be to:
 
 1. Identify the infrastructural situation, what does it (dis-)allow? Adapt.
 2. Define the stack. Adapt.
-3. Fork it as node module or integrate it as a folder.
+3. Fork it [as node module](#as-a-node-module) or integrate it [as a folder](#as-a-folder).
 
 ## Stack
 
@@ -224,13 +224,10 @@ Have a look at `paths.js` if you want to overwrite it.
 You will need to structure your project according to the [previous section](#as-a-node-module) and make following adaptions.
 
 1. Clone this repository and move the `lib`-folder to your project folder.
-2. Reference the main file in your `gulpfile.js`:
-
-`var akGulp = require('./lib/index');`
-
+2. Reference the main file in your `gulpfile.js`: `var akGulp = require('./lib/index');`
 3. Add all `dependencies` from this module to the `package.json`'s `devDependencies` and remove duplicates.
 
-For an example see [akSkeleton/folder-integration](akullpp/akSkeleton/tree/folder-integration).
+For an example see [akSkeleton/folder-integration](https://github.com/akullpp/akSkeleton/tree/folder-integration).
 
 ## Tasks
 
