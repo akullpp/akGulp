@@ -119,6 +119,8 @@ This has rather huge advantages and should be preferred to the integrated folder
 2. You've forked `akGulp` and now have an adapted version in own repository. In this case you will probably need to use the repository URL in the `devDependencies` of your `package.json`. This is not recommended since installations will take time, there will be no caching and no semver. Also you would probably need an SSH connection to the repository (and therefore the server) which is often an issue for the ops.
 3. You've forked it and have a private npm registry (e.g. [Nexus](https://books.sonatype.com/nexus-book/reference/npm.html) in which you've published your fork. Now you have everything: caching, security and semver. Good job.
 
+For an example see [akSkeleton](akullpp/akSkeleton).
+
 #### config.js
 
 Here you can overwrite the paths if your folder structure differs or specify additional and different options for the gulp plugins.
@@ -219,7 +221,16 @@ Have a look at `paths.js` if you want to overwrite it.
 
 ### As a folder
 
-TBD.
+You will need to structure your project according to the [previous section](#as-a-node-module) and make following adaptions.
+
+1. Clone this repository and move the `lib`-folder to your project folder.
+2. Reference the main file in your `gulpfile.js`:
+
+`var akGulp = require('./lib/index');`
+
+3. Add all `dependencies` from this module to the `package.json`'s `devDependencies` and remove duplicates.
+
+For an example see [akSkeleton/folder-integration](akullpp/akSkeleton/tree/folder-integration).
 
 ## Tasks
 
