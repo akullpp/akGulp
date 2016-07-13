@@ -221,6 +221,8 @@ Have a look at `paths.js` if you want to overwrite it.
 
 ### As a folder
 
+This is the preferred approach if you don't plan on heavily modularizing your applications.
+
 You will need to structure your project according to the [previous section](#as-a-node-module) and make following adaptions.
 
 1. Clone this repository and move the `lib`-folder to your project folder.
