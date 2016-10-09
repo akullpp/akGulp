@@ -14,7 +14,7 @@ Why should you use this rather conservative module to power your Angular 1 build
 
 You shouldn't in an ideal world were you could do everything as you please and move on to [webpack](https://webpack.github.io/) and so on. However in enterprise environments there are often restrictions (e.g. downloading binaries on your build server), other requirements (e.g. stability and documentation) or your colleagues are just not up to the churn.
 
-If you look at other gulp modules, you will find them often to be convoluted and to be showcases of what you could do if you push the limits.
+If you look at other Gulp modules, you will find them often to be convoluted and to be showcases of what you could do if you push the limits.
 
 This module aims to be different: Basic, conservative and documented.
 
@@ -40,7 +40,7 @@ These are the assumptions about the stack if you just want to use the module out
 
 * [AngularJS 1.x](https://www.angularjs.org/)
 * [ECMAScript 5.1](http://www.ecma-international.org/ecma-262/5.1/)
-* [ESLint 1.x](http://eslint.org/)
+* [ESLint 3.x](http://eslint.org/)
 * [Gulp 3.x](http://gulpjs.com/)
 * [Less 2.x](http://lesscss.org/)
 * [node 0.12.x](https://nodejs.org/en/)
@@ -48,8 +48,8 @@ These are the assumptions about the stack if you just want to use the module out
 
 ### Testing
 
-* [Karma 0.13.x](https://karma-runner.github.io/)
-* [Mocha 2.x](http://mochajs.org/)
+* [Karma 1.x](https://karma-runner.github.io/)
+* [Mocha 3.x](http://mochajs.org/)
 
 The assumption and best practice is to do consumer-driven API- and E2E-tests in a separate project.
 
@@ -85,6 +85,7 @@ In alphabetical order.
 * [gulp-util](https://github.com/gulpjs/gulp-util): Logging
 * [gulp-webserver](https://github.com/schickling/gulp-webserver): Serving files for development
 * [karma](http://karma-runner.github.io/): Testrunner
+* [karma-background](https://github.com/callmehiphop/karma-background): Runs karma as separate server in the background
 * [karma-chrome-launcher](https://github.com/karma-runner/karma-chrome-launcher): Chrome as test browser
 * [karma-coverage](https://github.com/karma-runner/karma-coverage): Generating reports for Sonar
 * [karma-firefox-launcher](https://github.com/karma-runner/karma-firefox-launcher): Firefox as test browser
@@ -125,21 +126,11 @@ For an example see [akSkeleton](akullpp/akSkeleton).
 
 Here you can overwrite the paths if your folder structure differs or specify additional and different options for the gulp plugins.
 
-The only required entry is the `moduleName` which is used for the partials as Angular module name:
+The only required entry is the `moduleName` which is used for the partials as Angular module name and is the same as the root module in your `app.js`:
 
 ```js
 module.exports = {
-    moduleName: 'my',
-    paths: {
-        app: {
-            fonts: ['my/path/fonts']
-        }
-    },
-    consts: {
-        webserver: {
-            port: '3000'
-        }
-    }
+    moduleName: 'my'
 };
 ```
 
@@ -149,7 +140,7 @@ The `paths` properties overwrite the properties in `path.js` and the `consts` pr
 
 You can define you own tasks or overwrite existing ones but it must at least have the following:
 
-```
+```js
 'use strict';
 
 var akGulp = require('ak-gulp');
@@ -177,7 +168,7 @@ This is the configuration for Karma and is required to be a valid module that ex
 
 are added automatically. Here's an example:
 
-```
+```js
 'use strict';
 
 module.exports = {
@@ -191,7 +182,7 @@ module.exports = {
 
 **Browsers** which would normally just be an array of strings are separated into `production` for your CI and `development` for your local environment. Here an example:
 
-```
+```js
 browsers: {
     production: ['IE'],
     development: ['Chrome']
@@ -208,9 +199,10 @@ The default minimal folder structure of the project is:
     src/
         app/
             index.html
-        fonts/
-            *.{eot,svg,ttf,woff,woff2,otf}
-        images/
+        assets/
+            images/
+            fonts/
+            ...
         styles/
             main.less
     test/
@@ -225,11 +217,11 @@ This is the preferred approach if you don't plan on heavily modularizing your ap
 
 You will need to structure your project according to the [previous section](#as-a-node-module) and make following adaptions.
 
-1. Clone this repository and move the `lib`-folder to your project folder.
+1. Clone this repository and move the `lib`-folder to your project folder and rename it to `gulp`.
 2. Reference the main file in your `gulpfile.js`: `var akGulp = require('./lib/index');`
 3. Add all `dependencies` from this module to the `package.json`'s `devDependencies` and remove duplicates.
 
-For an example see [akSkeleton/folder-integration](https://github.com/akullpp/akSkeleton/tree/folder-integration).
+For an example see [akSkeleton](https://github.com/akullpp/akSkeleton/).
 
 ## Tasks
 
@@ -242,8 +234,10 @@ This is a description of commonly used tasks during development. An extensive li
     ```
     build/
         dist/
-            fonts/
-            images/
+            assets/
+                fonts/
+                images/
+                ...
             scripts/
                 main-{rev}.js
                 main-{rev}.js.map
@@ -265,6 +259,10 @@ There's also the temporary folder which is used for development and intermediary
 ```
     build/
         .tmp/
+            assets/
+                fonts/
+                images/
+                ...
             styles/
                 main.css
             index.html
@@ -300,8 +298,3 @@ This is the entry point of the module, everything gets set up here.
 #### paths.js
 
 The default path structure as shown above. Also there is an array which allows to specify unhandled assets via negative glob.
-
-### Future Plans
-
-* Generator for Less/Sass switching
-* Tests

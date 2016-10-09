@@ -87,3 +87,9 @@ Therefore the `gitHash` and `writeHash` functions in the build file were also re
 ### Substituted `gulp-htmlmin` for `gulp-minify-html`
 
 Since the latter was deprecated.
+
+## 8.0.0
+
+1. Substituted fonts and images paths and tasks for general static assets. All static assets must be located in `src/assets` move your folders and files accordingly.
+
+2. Renamed assets task to unknown and changed paths accordingly. If you've customized the `unhandledAssets` path property, you'll need to rename it to `unknown`.
