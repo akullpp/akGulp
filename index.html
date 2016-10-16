@@ -53,7 +53,7 @@
 </ul>
 <h2>Motivation</h2><p>Why should you use this rather conservative module to power your Angular 1 build process?</p>
 <p>You shouldn't in an ideal world were you could do everything as you please and move on to <a href="https://webpack.github.io/">webpack</a> and so on. However in enterprise environments there are often restrictions (e.g. downloading binaries on your build server), other requirements (e.g. stability and documentation) or your colleagues are just not up to the churn.</p>
-<p>If you look at other gulp modules, you will find them often to be convoluted and to be showcases of what you could do if you push the limits.</p>
+<p>If you look at other Gulp modules, you will find them often to be convoluted and to be showcases of what you could do if you push the limits.</p>
 <p>This module aims to be different: Basic, conservative and documented.</p>
 <ol>
 <li>Basic: Only tasks which are necessary to produce a sensible distribution of the application are included.</li>
@@ -72,15 +72,15 @@
 <h3>General</h3><ul>
 <li><a href="https://www.angularjs.org/">AngularJS 1.x</a></li>
 <li><a href="http://www.ecma-international.org/ecma-262/5.1/">ECMAScript 5.1</a></li>
-<li><a href="http://eslint.org/">ESLint 1.x</a></li>
+<li><a href="http://eslint.org/">ESLint 3.x</a></li>
 <li><a href="http://gulpjs.com/">Gulp 3.x</a></li>
 <li><a href="http://lesscss.org/">Less 2.x</a></li>
 <li><a href="https://nodejs.org/en/">node 0.12.x</a></li>
 <li><a href="https://www.npmjs.com/">npm 2.x</a></li>
 </ul>
 <h3>Testing</h3><ul>
-<li><a href="https://karma-runner.github.io/">Karma 0.13.x</a></li>
-<li><a href="http://mochajs.org/">Mocha 2.x</a></li>
+<li><a href="https://karma-runner.github.io/">Karma 1.x</a></li>
+<li><a href="http://mochajs.org/">Mocha 3.x</a></li>
 </ul>
 <p>The assumption and best practice is to do consumer-driven API- and E2E-tests in a separate project.</p>
 <h3>Dependencies</h3><p>In alphabetical order.</p>
@@ -113,6 +113,7 @@
 <li><a href="https://github.com/gulpjs/gulp-util">gulp-util</a>: Logging</li>
 <li><a href="https://github.com/schickling/gulp-webserver">gulp-webserver</a>: Serving files for development</li>
 <li><a href="http://karma-runner.github.io/">karma</a>: Testrunner</li>
+<li><a href="https://github.com/callmehiphop/karma-background">karma-background</a>: Runs karma as separate server in the background</li>
 <li><a href="https://github.com/karma-runner/karma-chrome-launcher">karma-chrome-launcher</a>: Chrome as test browser</li>
 <li><a href="https://github.com/karma-runner/karma-coverage">karma-coverage</a>: Generating reports for Sonar</li>
 <li><a href="https://github.com/karma-runner/karma-firefox-launcher">karma-firefox-launcher</a>: Firefox as test browser</li>
@@ -142,24 +143,13 @@
 <li>You've forked <code>akGulp</code> and now have an adapted version in own repository. In this case you will probably need to use the repository URL in the <code>devDependencies</code> of your <code>package.json</code>. This is not recommended since installations will take time, there will be no caching and no semver. Also you would probably need an SSH connection to the repository (and therefore the server) which is often an issue for the ops.</li>
 <li>You've forked it and have a private npm registry (e.g. <a href="https://books.sonatype.com/nexus-book/reference/npm.html">Nexus</a> in which you've published your fork. Now you have everything: caching, security and semver. Good job.</li>
 </ol>
-<p>For an example see <a href="akullpp/akSkeleton">akSkeleton</a>.</p>
 <h4>config.js</h4><p>Here you can overwrite the paths if your folder structure differs or specify additional and different options for the gulp plugins.</p>
-<p>The only required entry is the <code>moduleName</code> which is used for the partials as Angular module name:</p>
+<p>The only required entry is the <code>moduleName</code> which is used for the partials as Angular module name and is the same as the root module in your <code>app.js</code>:</p>
 <pre class="prettyprint source lang-js"><code>module.exports = {
-    moduleName: 'my',
-    paths: {
-        app: {
-            fonts: ['my/path/fonts']
-        }
-    },
-    consts: {
-        webserver: {
-            port: '3000'
-        }
-    }
+    moduleName: 'my'
 };</code></pre><p>The <code>paths</code> properties overwrite the properties in <code>path.js</code> and the <code>consts</code> properties overwrite the properties in <code>consts.js</code>.</p>
 <h4>gulpfile.js</h4><p>You can define you own tasks or overwrite existing ones but it must at least have the following:</p>
-<pre class="prettyprint source"><code>'use strict';
+<pre class="prettyprint source lang-js"><code>'use strict';
 
 var akGulp = require('ak-gulp');
 var gulp = require('gulp');
@@ -178,7 +168,7 @@ akGulp(gulp, config);</code></pre><p>To overwrite or create a task you define it
 <li><code>config.paths.app.partials</code></li>
 </ul>
 <p>are added automatically. Here's an example:</p>
-<pre class="prettyprint source"><code>'use strict';
+<pre class="prettyprint source lang-js"><code>'use strict';
 
 module.exports = {
     deps: [
@@ -187,7 +177,7 @@ module.exports = {
         'test/setup.js'
     ]
 };</code></pre><p><strong>Browsers</strong> which would normally just be an array of strings are separated into <code>production</code> for your CI and <code>development</code> for your local environment. Here an example:</p>
-<pre class="prettyprint source"><code>browsers: {
+<pre class="prettyprint source lang-js"><code>browsers: {
     production: ['IE'],
     development: ['Chrome']
 }</code></pre><p>Possible values are <code>Chrome</code>, <code>Firefox</code> and <code>IE</code>.</p>
@@ -195,9 +185,10 @@ module.exports = {
 <pre class="prettyprint source"><code>    src/
         app/
             index.html
-        fonts/
-            *.{eot,svg,ttf,woff,woff2,otf}
-        images/
+        assets/
+            images/
+            fonts/
+            ...
         styles/
             main.less
     test/
@@ -205,11 +196,11 @@ module.exports = {
 <h3>As a folder</h3><p>This is the preferred approach if you don't plan on heavily modularizing your applications.</p>
 <p>You will need to structure your project according to the <a href="#as-a-node-module">previous section</a> and make following adaptions.</p>
 <ol>
-<li>Clone this repository and move the <code>lib</code>-folder to your project folder.</li>
+<li>Clone this repository and move the <code>lib</code>-folder to your project folder and rename it to <code>gulp</code>.</li>
 <li>Reference the main file in your <code>gulpfile.js</code>: <code>var akGulp = require('./lib/index');</code></li>
 <li>Add all <code>dependencies</code> from this module to the <code>package.json</code>'s <code>devDependencies</code> and remove duplicates.</li>
 </ol>
-<p>For an example see <a href="https://github.com/akullpp/akSkeleton/tree/folder-integration">akSkeleton/folder-integration</a>.</p>
+<p>For an example see <a href="https://github.com/akullpp/akSkeleton">akSkeleton</a>.</p>
 <h2>Tasks</h2><p>This is a description of commonly used tasks during development. An extensive list and documentation can be found <a href="http://akullpp.github.io/akGulp">at the respective website</a>. The same documentation can also be generated by <code>npm run doc</code>.</p>
 <ul>
 <li><p><code>gulp</code> (defaults to <code>gulp dev</code>): Launches a server hosting and watching the development files. The server reacts on changes on the development files and automatically does script injection if a new file is found or runs the preprocessor, tests and linter on changes.</p>
@@ -217,8 +208,10 @@ module.exports = {
 <li><p><code>gulp build</code>: After successfully running the tests it builds the distribution which produces following folder structure:</p>
 <pre class="prettyprint source"><code>  build/
       dist/
-          fonts/
-          images/
+          assets/
+              fonts/
+              images/
+              ...
           scripts/
               main-{rev}.js
               main-{rev}.js.map
@@ -237,6 +230,10 @@ module.exports = {
 <p>There's also the temporary folder which is used for development and intermediary files:</p>
 <pre class="prettyprint source"><code>    build/
         .tmp/
+            assets/
+                fonts/
+                images/
+                ...
             styles/
                 main.css
             index.html
@@ -250,11 +247,7 @@ module.exports = {
 </ol>
 <h3>Structure</h3><h4>consts.js</h4><p>Here are several constants like plugin options or the production flag.</p>
 <h4>index.js</h4><p>This is the entry point of the module, everything gets set up here.</p>
-<h4>paths.js</h4><p>The default path structure as shown above. Also there is an array which allows to specify unhandled assets via negative glob.</p>
-<h3>Future Plans</h3><ul>
-<li>Generator for Less/Sass switching</li>
-<li>Tests</li>
-</ul></article>
+<h4>paths.js</h4><p>The default path structure as shown above. Also there is an array which allows to specify unhandled assets via negative glob.</p></article>
     </section>
 
 
@@ -265,13 +258,13 @@ module.exports = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="assets.html">assets</a></li><li><a href="build.html">build</a></li><li><a href="clean.html">clean</a></li><li><a href="default.html">default</a></li><li><a href="dev.html">dev</a></li><li><a href="fonts.html">fonts</a></li><li><a href="images.html">images</a></li><li><a href="inject.html">inject</a></li><li><a href="lint.html">lint</a></li><li><a href="partials.html">partials</a></li><li><a href="serve.html">serve</a></li><li><a href="styles.html">styles</a></li><li><a href="tests.html">tests</a></li><li><a href="version.html">version</a></li><li><a href="watch.html">watch</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="assets.html">assets</a></li><li><a href="build.html">build</a></li><li><a href="clean.html">clean</a></li><li><a href="default.html">default</a></li><li><a href="dev.html">dev</a></li><li><a href="inject.html">inject</a></li><li><a href="lint.html">lint</a></li><li><a href="partials.html">partials</a></li><li><a href="serve.html">serve</a></li><li><a href="styles.html">styles</a></li><li><a href="tests.html">tests</a></li><li><a href="unknown.html">unknown</a></li><li><a href="version.html">version</a></li><li><a href="watch.html">watch</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Jul 13 2016 09:07:03 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Sun Oct 16 2016 10:59:21 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

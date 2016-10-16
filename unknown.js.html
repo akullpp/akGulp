@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: serve.js</title>
+    <title>JSDoc: Source: unknown.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: serve.js</h1>
+    <h1 class="page-title">Source: unknown.js</h1>
 
     
 
@@ -28,46 +28,31 @@
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
 
-module.exports = function(gulp, $, config) {
+module.exports = function(gulp, $, config, _) {
     /**
-     * Static file server for development.
+     * Copies unknown files in the source files with preserved paths to dist.
      *
-     * Serves with priority from:
+     * Known files can be configered via `paths.unknown` and should be negative globs. The unhandled files are all files with file extensions in `paths.app.base`.
      *
-     * 1. `paths.build.tmp.base`
-     * 2. `paths.base`
+     * **The files should be processed by a task as soon as possible.**
      *
-     * Therefore the `index.html` located in the temporary folder precedes the same file in the base folder.
+     * ```
+     * config.paths.app.base/**&amp;#47;* -> config.paths.build.dist.base/config.paths.app.base
+     * ```
      *
-     * @public
-     * @namespace serve
+     * @private
+     * @namespace unknown
      */
-    gulp.task('serve', function () {
-        return server([
-            config.paths.build.tmp.base,
-            config.paths.base,
-            'node_modules'
-        ]);
+    gulp.task('unknown', function () {
+        return gulp.src($.path.join(config.paths.app.base, '**/*'), {read:false})
+            // Filter everything that has a file ending combined with the negative globs in the array
+            .pipe($.filter(_.union(['**/*.*'], config.paths.unknown)))
+            .pipe(gulp.dest($.path.join(config.paths.build.dist.base, config.paths.app.base)))
+            .pipe($.size({
+                showFiles: true,
+                title: 'unknown files: '
+            }));
     });
-
-    /**
-     * Static file server that serves the `paths.build.dist.base` folder after executing the {@link build} task.
-     *
-     * @public
-     * @name serve:dist
-     * @memberof serve
-     */
-    gulp.task('serve:dist', ['build'], function () {
-        return server(config.paths.build.dist.base);
-    });
-
-    function server(filesToServe) {
-        return gulp.src(filesToServe, {read:false})
-            .pipe($.plumber({
-                errorHandler: $.errorHandler
-            }))
-            .pipe($.webserver(config.consts.webserver));
-    }
 };
 </code></pre>
         </article>
