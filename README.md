@@ -43,8 +43,8 @@ These are the assumptions about the stack if you just want to use the module out
 * [ESLint 3.x](http://eslint.org/)
 * [Gulp 3.x](http://gulpjs.com/)
 * [Less 2.x](http://lesscss.org/)
-* [node 0.12.x](https://nodejs.org/en/)
-* [npm 2.x](https://www.npmjs.com/)
+* [node 6.x](https://nodejs.org/en/)
+* [npm 3.x](https://www.npmjs.com/)
 
 ### Testing
 

@@ -93,3 +93,9 @@ Since the latter was deprecated.
 1. Substituted fonts and images paths and tasks for general static assets. All static assets must be located in `src/assets` move your folders and files accordingly.
 
 2. Renamed assets task to unknown and changed paths accordingly. If you've customized the `unhandledAssets` path property, you'll need to rename it to `unknown`.
+
+## 9.0.0
+
+1. The former `tests` task is now called `test` to be more consistent with `npm test`.
+
+2. Minimum requirements are now Node 6.x and npm 3.x, please update.
