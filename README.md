@@ -1,8 +1,10 @@
+# akGulp
+
 ## Deprecation Warning
 
 It is recommended that you use Vue, React or even Angular 2 at this point.
 
-# akGulp
+## Description
 
 Conservative and basic [Gulp](http://gulpjs.com/) module for enterprise Angular 1 projects.
 
