@@ -2,7 +2,7 @@
 
 ## Deprecation Warning
 
-I recommend that you use the CLI tools of Vue, React or even Angular 2 and therefore won't update this module anymore.
+I recommend that you use the CLI tools of Vue, React or even Angular 2 and therefore I won't update this module anymore.
 
 Raise an issue or create a pull request if you want an update.
 
